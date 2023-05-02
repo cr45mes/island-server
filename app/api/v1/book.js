@@ -4,6 +4,8 @@ const router = new Router({
 });
 
 const { HotBook } = require("../../models/hot-book");
+const { LiteraryBook } = require("../../models/literary-book");
+const { CodeBook } = require("../../models/code-book");
 const { Book } = require("../../models/book");
 const { Favor } = require("../../models/favor");
 const { Comment } = require("../../models/book-comment");
@@ -17,6 +19,16 @@ const { success } = require("../../lib/helper");
 
 router.get("/hot_list", async (ctx, next) => {
   const books = await HotBook.getAll();
+  ctx.body = books;
+});
+//获取文学类图书
+router.get("/literarybook_list", async (ctx, next) => {
+  const books = await LiteraryBook.getAll();
+  ctx.body = books;
+});
+//获取编程类图书
+router.get("/codebook_list", async (ctx, next) => {
+  const books = await CodeBook.getAll();
   ctx.body = books;
 });
 
@@ -63,6 +75,7 @@ router.post("/add/short_comment", new Auth().m, async (ctx) => {
   Comment.addComment(v.get("body.book_id"), v.get("body.content"));
   success();
 });
+
 
 router.get("/:book_id/short_comment", new Auth().m, async (ctx) => {
   const v = await new PositiveIntegerValidator().validate(ctx, {

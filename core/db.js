@@ -20,6 +20,7 @@ const sequelize = new Sequelize(dbName, user, password, {
     underscored: true, // 驼峰命名 -> 下划线
     scopes: {
       bh: {
+        //bh：自定义规则的名字，这个规则可以在查询到数据中去除updatedAt", "deletedAt", "createdAt这三个字段
         attributes: {
           exclude: ["updatedAt", "deletedAt", "createdAt"],
         },

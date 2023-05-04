@@ -88,6 +88,25 @@ class Favor extends Model {
       like_status: myFavor ? 1 : 0,
     };
   }
+  static async getMovieFavor(uid, movieID) {
+    const favorNums = await Favor.count({
+      where: {
+        art_id: movieID,
+        type: 101,
+      },
+    });
+    const myFavor = await Favor.findOne({
+      where: {
+        art_id: movieID,
+        uid,
+        type: 101,
+      },
+    });
+    return {
+      fav_nums: favorNums,
+      like_status: myFavor ? 1 : 0,
+    };
+  }
 }
 
 Favor.init(

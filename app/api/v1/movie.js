@@ -4,14 +4,48 @@ const { ComedyMovie } = require("../../models/movie/comedy-movie");
 const { ScifiMovie } = require("../../models/movie/scifi-movie");
 const { DramaMovie } = require("../../models/movie/drama-movie");
 const {  MovieDetail } = require("../../models/movie/movie-detail");
+const { Favor } = require("../../models/favor");
+const {  MovieComment } = require("../../models/movie/movie-comment");
 const { success } = require("../../lib/helper");
 const {
-  PositiveIntegerValidator
+  PositiveIntegerValidator,
+  AddShortCommentValidator
 } = require("../../validators/validator");
 const { Auth } = require("../../../middlewares/auth");
 const router = new Router({
   prefix: "/v1/movie", // 该路由下的前缀
 });
+//添加短评
+router.post("/add/short_comment", new Auth().m, async (ctx) => {
+  const v = await new AddShortCommentValidator().validate(ctx, {
+    id: "id",
+  });
+  MovieComment.addComment(v.get("body.id"), v.get("body.content"));
+  success();
+});
+//获取短评
+router.get("/:id/short_comment", new Auth().m, async (ctx) => {
+  const v = await new PositiveIntegerValidator().validate(ctx, {
+    id: "id",
+  });
+  const movie_id = v.get("path.id");
+  console.log('first-----------',movie_id)
+  const comments = await MovieComment.getComments(v.get("path.id"));
+  ctx.body = {
+    comments,
+    movie_id,
+  };
+});
+//获取电影喜欢数
+router.get("/:id/favor", new Auth().m, async (ctx) => {
+  const v = await new PositiveIntegerValidator().validate(ctx, {
+    id: "id",
+  });
+  const favor = await Favor.getMovieFavor(ctx.auth.uid, v.get("path.id"));
+  ctx.body = favor;
+});
+
+
 //添加电影到数据库
 router.post("/add/movie", new Auth().m, async (ctx) => {
   const v = await new PositiveIntegerValidator().validate(ctx, {

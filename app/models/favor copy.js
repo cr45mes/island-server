@@ -1,5 +1,5 @@
 const { Sequelize, Model, Op } = require("sequelize");
-
+const { Book } = require("../models/book");
 const { sequelize } = require("../../core/db");
 const { Art } = require("../models/art");
 const {
@@ -80,7 +80,7 @@ class Favor extends Model {
       throw new NotFound();
     }
     // return await arts;
-    return await Art.getBookList(arts);
+    return await Book.getList(arts);
   }
 
   static async getBookFavor(uid, bookID) {

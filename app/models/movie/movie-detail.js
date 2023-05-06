@@ -32,7 +32,7 @@ MovieDetail.init(
     title: Sequelize.STRING,
     comments_count: Sequelize.STRING,
     wish_count: Sequelize.STRING,
-    stars: Sequelize.STRING,
+    fav_nums: Sequelize.STRING,
     summary: Sequelize.STRING,
     directors: Sequelize.STRING,
     casts: Sequelize.STRING,

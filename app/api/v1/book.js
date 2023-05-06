@@ -89,6 +89,11 @@ router.get("/:book_id/short_comment", new Auth().m, async (ctx) => {
   };
 });
 
+router.get("/my_like_book",  new Auth().m, async ctx => {
+  const uid = ctx.auth.uid
+  ctx.body = await Favor.getMyBookFavors(uid)
+});
+
 router.get("/hot_keyword", async (ctx) => {
   ctx.body = {
     hot: [

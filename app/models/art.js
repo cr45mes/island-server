@@ -1,7 +1,12 @@
 const { Op } = require("sequelize");
 const { flatten } = require("lodash");
+const axios = require("axios");
+const util = require("util");
 
+const { detailUrl, keywordUrl } = require("../../config/config").yushu;
 const { Movie, Music, Sentence } = require("./classic");
+const { MovieDetail } =require("./movie/movie-detail")
+// const { Book } =require("./book")
 const { NotFound } = require("../../core/http-exception");
 // const { host } = require('../../config/config')
 
@@ -27,6 +32,7 @@ class Art {
   static async getList(artInfoList) {
     const artInfoObj = {
       100: [],
+      101: [],
       200: [],
       300: [],
     };
@@ -41,6 +47,21 @@ class Art {
       arts.push(await Art._getListByType(ids, key));
     }
     return flatten(arts);
+  }
+
+  static async getBookList(arr) {
+    
+    const promises = arr.map(async (item)=>{
+      const url = util.format(detailUrl, item.id);
+      // console.log("eeeee", url);
+      const detail = await axios.get(url);
+      return detail.data
+      // console.log('2222222222222222',detail.data)
+      // console.log('333',rarr)
+    })
+    const rarr = await Promise.all(promises)
+    
+    return rarr
   }
 
   static async _getListByType(ids, type) {
@@ -83,6 +104,9 @@ class Art {
       case 100:
         art = await Movie.scope(scope).findOne(finder);
         break;
+      case 101:
+        art = await MovieDetail.scope(scope).findOne(finder);
+        break;  
       case 200:
         art = await Music.scope(scope).findOne(finder);
         break;

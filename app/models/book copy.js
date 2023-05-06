@@ -19,7 +19,12 @@ class Book extends Model {
     return detail.data;
   }
 
-  
+  static async getList(arr) {
+    let rarr = []
+    arr.map((item)=>{
+      this.detail(item.id)
+    })
+  }
 
   static async getMyFavorBookCount(uid) {
     const count = await Favor.count({

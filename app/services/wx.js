@@ -6,10 +6,6 @@ const { AuthFailed } = require("../../core/http-exception");
 const { User } = require("../models/user");
 const { generateToken } = require("../../core/util");
 const { Auth } = require("../../middlewares/auth");
-
-/**
- * https://developers.weixin.qq.com/miniprogram/dev/api-backend/open-api/login/auth.code2Session.html
- */
 class WXManager {
   static async codeToToken(code) {
     const url = util.format(lognUrl, appId, appSecret, code);
@@ -31,7 +27,6 @@ class WXManager {
     return generateToken(user.id, Auth.USER);
   }
 }
-
 module.exports = {
   WXManager,
 };

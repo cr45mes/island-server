@@ -24,7 +24,6 @@ class DramaMovie extends Model {
     });
     return movies;
   }
-
   static _getEachMovieStatus(movie, favors) {
     let count = 0;
     favors.forEach((favor) => {

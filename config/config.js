@@ -1,7 +1,8 @@
 module.exports = {
   environment: "dev",
   database: {
-    dbName: "island",
+    dbName: "lin-cms-x",
+    // dbName: "island",
     host: "localhost",
     port: 3306,
     user: "root",

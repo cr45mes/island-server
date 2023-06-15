@@ -46,6 +46,9 @@ HotBook.init({
 }, {
   sequelize,
   tableName: 'hot_book',
+  createdAt: 'create_time',
+    updatedAt: 'update_time',
+    deletedAt: 'delete_time',
 })
 
 module.exports = {

@@ -18,9 +18,6 @@ class Book extends Model {
     const detail = await axios.get(url);
     return detail.data;
   }
-
-  
-
   static async getMyFavorBookCount(uid) {
     const count = await Favor.count({
       where: {
@@ -31,11 +28,8 @@ class Book extends Model {
     
     return count;
   }
-
   static async searchFromYuShu(q, start, count, summary = 1) {
-    console.log("bbb", q, start, count, summary);
     const url = util.format(keywordUrl, encodeURI(q), count, start, summary);
-    console.log("ccc", url);
     const result = await axios.get(url);
     return result.data;
   }

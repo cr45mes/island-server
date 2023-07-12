@@ -13,8 +13,8 @@ module.exports = {
     expiresIn: 60 * 60 * 24 * 30, // 过期时间
   }, //用于生成token
   wx: {
-    appId: "wxa0c64efa1f923c80",
-    appSecret: "bce1ce56a9c5e1cb99e4bef6ecb342b0",
+    appId: "",
+    appSecret: "",
     lognUrl:
       "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code",
   },
